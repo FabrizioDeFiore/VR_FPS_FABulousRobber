@@ -6,7 +6,7 @@ public class Health : MonoBehaviour
 {
     public float maxHealth;
     public float currentHealth;
-    CopsAgent cop;
+
     public float blinkIntensity;
     public float blinkDuration;
     float blinkTimer;
@@ -15,7 +15,7 @@ public class Health : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cop = GetComponent<CopsAgent>();
+
         skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         currentHealth = maxHealth;
         //Assign the hitbox script to all the part of the ragdoll 
@@ -24,11 +24,13 @@ public class Health : MonoBehaviour
             HitBox hitBox = rigidBody.gameObject.AddComponent<HitBox>();
             hitBox.health = this;
         }
+        OnStart();
     }
 
     public void TakeDamage(float amount){
         // Update health with the damage
         currentHealth -= amount;
+        OnDamage();
         // If health is finished kill the character 
         if (currentHealth <= 0.0f){
             Die();
@@ -38,10 +40,8 @@ public class Health : MonoBehaviour
     }
 
     public void Die(){
-        // Get ref to the state machine script that manage the die 
-        CopDeathState deathState = cop.stateMachine.GetState(CopStateId.Death) as CopDeathState;
-        // Change state 
-        cop.stateMachine.ChangeState(CopStateId.Death);
+        OnDeath();
+        
     }
 
     private void Update(){
@@ -53,5 +53,13 @@ public class Health : MonoBehaviour
         // Apply the intesity effect
         skinnedMeshRenderer.material.color = Color.white * intensity;
     }
-    
+    protected virtual void OnStart(){
+        
+    }
+    protected virtual void OnDeath(){
+        
+    }
+    protected virtual void OnDamage(){
+        
+    }
 }

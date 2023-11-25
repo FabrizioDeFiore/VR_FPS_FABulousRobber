@@ -9,7 +9,7 @@ public class HitBox : MonoBehaviour
         // Check if colliding with a bullet 
         if (collision.gameObject.CompareTag("Bullet")){
             // Call the TakeDamage function form the health script 
-            health.TakeDamage(40);
+            health.TakeDamage(10);
         }
     }
 }

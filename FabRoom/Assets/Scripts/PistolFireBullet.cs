@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;  
 
 
-public class FireBullet : MonoBehaviour
+public class PistolFireBullet : MonoBehaviour
 {
     public GameObject bullet;
     public Transform spawnPoint;
@@ -22,15 +22,16 @@ public class FireBullet : MonoBehaviour
     }
 
     public void Fire(ActivateEventArgs arg){
-        Quaternion bulletRotation = Quaternion.Euler(spawnPoint.rotation.x -90, spawnPoint.rotation.y, spawnPoint.rotation.y);
+        Quaternion bulletRotation = Quaternion.Euler(spawnPoint.localRotation.x - 90, spawnPoint.localRotation.y, spawnPoint.localRotation.y);
+        bullet.transform.localRotation = bulletRotation;
         // Create the bullet object
-        GameObject spawnedBullet = Instantiate(bullet, spawnPoint.position, bulletRotation);
+        GameObject spawnedBullet = Instantiate(bullet, spawnPoint.position, bulletRotation  );// spawnPoint.localRotation
         // Fire it giving trajectory and speed
         spawnedBullet.GetComponent<Rigidbody>().velocity = spawnPoint.forward * fireSpeed;
         // From the spawn point position
         //spawnedBullet.transform.position = spawnPoint.position;
-        //Quaternion bulletRotation = Quaternion.Euler(90, 0, 0);
-        // spawnedBullet.transform.rotation = bulletRotation;
+        // Quaternion bulletRotation = Quaternion.Euler(90, 0, 0);
+        // spawnedBullet.transform.localRotation = bulletRotation;
     
     }
 

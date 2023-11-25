@@ -12,9 +12,9 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         } else if (other.gameObject.layer == LayerMask.NameToLayer("Environment")){
             Destroy(gameObject);
+        } else if (other.gameObject.layer == LayerMask.NameToLayer("Player")){
+            // inflict damage to the player 
+            Destroy(gameObject);
         }
-        
-        
-        
     }   
 }

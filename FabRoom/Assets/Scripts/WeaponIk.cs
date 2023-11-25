@@ -14,6 +14,7 @@ public class WeaponIk : MonoBehaviour
     public CopsWeapons copsWeapons;
     public Transform targetTransform;
     public Transform aimTransform;
+    public CopsFireWeapon fireWeapon;
     public int iterations = 10;
     [Range(0,1)]
     public float weight = 1.0f;
@@ -21,6 +22,7 @@ public class WeaponIk : MonoBehaviour
     Transform[] boneTransforms;
     public float angleLimit = 90.0f;
     public float distanceLimit = 1.5f;
+    public Vector3 targetOffset;
 
     // Start is called before the first frame update
     void Start(){
@@ -34,7 +36,7 @@ public class WeaponIk : MonoBehaviour
 
     Vector3 GetTargetPosition(){
         // Get directions
-        Vector3 targetDirection = targetTransform.position - aimTransform.position;
+        Vector3 targetDirection = (targetTransform.position + targetOffset) - aimTransform.position;
         Vector3 aimDirection = aimTransform.forward;
         // Blend back towards the forward axis of the character when limits exceeded
         float blendOut = 0.0f;
@@ -102,4 +104,7 @@ public class WeaponIk : MonoBehaviour
     public void SetAimTransform(Transform aim){
         aimTransform = aim;
     }
+    // public void GetFireScript(CopsFireWeapon copsFire){
+    //     fireWeapon = copsFire;
+    // }
 }
